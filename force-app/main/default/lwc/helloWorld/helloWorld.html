@@ -1,0 +1,16 @@
+<!--
+  @description       : 
+  @author            : Riley Meyer
+  @group             : 
+  @last modified on  : 05-25-2024
+  @last modified by  : Riley Meyer
+-->
+<template>
+  <div class="slds-text-heading_large">Really Big Text</div>
+  <lightning-card title="Hello Globe" icon-name="custom:custom14">
+    <div class="slds-var-m-around_medium">
+      <p>Hello, {greeting}!</p>
+      <lightning-input label="Name" value={greeting} onchange={changeHandler}></lightning-input>
+    </div>
+  </lightning-card>
+</template>
