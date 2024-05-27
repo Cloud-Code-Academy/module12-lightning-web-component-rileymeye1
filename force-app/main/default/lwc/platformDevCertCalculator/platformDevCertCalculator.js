@@ -12,8 +12,11 @@ export default class PlatformDevCertCalculator extends LightningElement {
   userInterfaceScore = 50;
   testingScore = 50;
   certificationScore = 90;
+  numberOfQuestions = 60;
   showResources = false;
   showGoodJob = false;
+  currentHistoryId = 0;
+
   @track attemptHistory = [];
 
   calculateScore(){
@@ -52,11 +55,20 @@ export default class PlatformDevCertCalculator extends LightningElement {
   }
 
   addAttemptHistory(score){
+    this.currentHistoryId ++;
     const attempt =
       {
-        Id: this.attemptHistory.length + 1, Score:score
+        Id: this.currentHistoryId, Score:score
       }
     this.attemptHistory = [...this.attemptHistory, attempt];
   }
 
+  deleteAttemptHandler(event){
+    let attemptId = event.detail;
+    this.attemptHistory = this.attemptHistory.filter(attempt => attempt.Id != attemptId);
+  }
+
+  connectedCallback() {
+    this.currentHistoryId = this.attemptHistory.length;
+  }
 }

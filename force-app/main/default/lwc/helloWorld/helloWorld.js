@@ -2,10 +2,13 @@ import { LightningElement } from 'lwc';
 
 export default class HelloWorld extends LightningElement {
 
-  greeting = 'Everyone';
+  showChild = false;
 
-  changeHandler(event) {
-    console.log(event.target.value);
-    this.greeting = event.target.value;
+  handleClick(event) {
+    this.showChild = !this.showChild;
+  }
+
+  connectedCallback() {
+    console.log('connectedCallback loaded...' + this.showChild);
   }
 }

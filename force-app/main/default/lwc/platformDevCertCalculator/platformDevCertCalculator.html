@@ -2,7 +2,7 @@
   @description       : 
   @author            : Riley Meyer
   @group             : 
-  @last modified on  : 05-26-2024
+  @last modified on  : 05-27-2024
   @last modified by  : Riley Meyer
 -->
 <template>
@@ -55,7 +55,12 @@
         <lightning-tabset>
           <div for:each={attemptHistory} for:item="attempt" key={attempt.Id}>
             <lightning-tab label={attempt.Id}>
-              <p>Score: {attempt.Score}%</p>
+              <c-score-information
+                score={attempt.Score}
+                attempt-id={attempt.Id}
+                number-of-questions={numberOfQuestions}
+                ondeleteattempt={deleteAttemptHandler}
+              ></c-score-information>
             </lightning-tab>
           </div>
         </lightning-tabset>
