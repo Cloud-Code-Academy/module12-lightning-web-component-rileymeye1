@@ -1,8 +1,9 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 const devFundWeight = 0.23;
 const processAutoWeight = 0.30;
 const userIntWeight = 0.25;
 const testDebugWeight = 0.22;
+const passingScore = 68;
 
 export default class PlatformDevCertCalculator extends LightningElement {
 
@@ -10,8 +11,10 @@ export default class PlatformDevCertCalculator extends LightningElement {
   processAutomationScore = 50;
   userInterfaceScore = 50;
   testingScore = 50;
-
   certificationScore = 90;
+  showResources = false;
+  showGoodJob = false;
+  @track attemptHistory = [];
 
   calculateScore(){
     let devFundWeightScore = this.devFundamentalScore * devFundWeight;
@@ -19,12 +22,15 @@ export default class PlatformDevCertCalculator extends LightningElement {
     let userIntWeightScore = this.userInterfaceScore * userIntWeight;
     let testDebugWeightScore = this.testingScore * testDebugWeight;
     this.certificationScore = devFundWeightScore + processAutoWeightScore + userIntWeightScore + testDebugWeightScore;
+
+    this.showResourceIfFailed();
+    this.addAttemptHistory(this.certificationScore);
   }
 
   handleChange(event){
-    console.log(event.target.name, event.target.value);
     const inputName = event.target.name;
     let value = Number(event.target.value);
+
     if (inputName === 'devFundamentals') {
       this.devFundamentalScore = value;
     } else if (inputName === 'processAuto') {
@@ -34,6 +40,23 @@ export default class PlatformDevCertCalculator extends LightningElement {
     } else if (inputName === 'testDebugDeploy') {
       this.testingScore = value;
     }
+  }
+
+  showResourceIfFailed(){
+    if (this.certificationScore < passingScore){
+      this.showResources = true;
+    } else {
+      this.showResources = false;
+    }
+    this.showGoodJob = !this.showResources;
+  }
+
+  addAttemptHistory(score){
+    const attempt =
+      {
+        Id: this.attemptHistory.length + 1, Score:score
+      }
+    this.attemptHistory = [...this.attemptHistory, attempt];
   }
 
 }
