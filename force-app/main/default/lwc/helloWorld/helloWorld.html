@@ -1,0 +1,18 @@
+<!--
+  @description       : 
+  @author            : Riley Meyer
+  @group             : 
+  @last modified on  : 05-27-2024
+  @last modified by  : Riley Meyer
+-->
+<template>
+  <div class="slds-text-heading_large">Really Big Text</div>
+  <lightning-card title="Hello Globe" icon-name="custom:custom14">
+    <div class="slds-var-m-around_medium">
+      <lightning-button variant="brand" label="Show Child" title="Looks like a link" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+      <template if:true={showChild}>
+        <c-hello-child></c-hello-child>
+      </template>
+    </div>
+  </lightning-card>
+</template>
